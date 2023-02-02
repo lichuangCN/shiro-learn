@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.learn.repo.mapper.RoleMapper">
+
+    <select id="listRoleByUserId" resultType="com.example.learn.repo.entity.RoleEntity">
+        SELECT
+            DISTINCT r.`id`,
+            r.`role`,
+            r.`desc`
+        FROM `role` AS r
+        LEFT JOIN `user_role` AS ur ON ur.`role_id` = r.`id`
+        LEFT JOIN `user` AS u ON u.`id` = ur.`user_id`
+        WHERE u.`id` = #{userId}
+    </select>
+</mapper>

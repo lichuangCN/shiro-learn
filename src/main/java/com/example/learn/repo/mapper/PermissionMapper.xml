@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.learn.repo.mapper.PermissionMapper">
+
+    <select id="listByRoleId" resultType="com.example.learn.repo.entity.PermissionEntity">
+        SELECT
+            DISTINCT p.`id`,
+            p.`permission`,
+            p.`desc`
+        FROM permission AS p
+        LEFT JOIN role_permission rp ON rp.permission_id = p.id
+        WHERE  rp.role_id IN
+        <foreach collection="roleIds" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>
